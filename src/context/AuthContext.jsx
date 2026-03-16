@@ -39,7 +39,7 @@ export function AuthProvider({ children }) {
       
       if (user?.email && token && !dbUser) {
         try {
-          const res = await axios.get(`http://localhost:5000/api/users/profile`, {
+          const res = await axios.get(`https://second-hand-marketplace-backend-final.onrender.com/api/users/profile`, {
             headers: { Authorization: `Bearer ${token}` }
           });    
           if (res.data) {

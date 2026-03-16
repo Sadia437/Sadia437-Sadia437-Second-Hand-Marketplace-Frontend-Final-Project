@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:5000/api', // keep dev backend
+ 
+  baseURL: 'https://second-hand-marketplace-backend-final.onrender.com/api', 
   timeout: 10000,
   headers: { 'Content-Type': 'application/json' },
 });
