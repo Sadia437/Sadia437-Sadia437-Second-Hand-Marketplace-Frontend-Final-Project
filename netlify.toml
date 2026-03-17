@@ -1,4 +1,0 @@
-[build]
-  base = "greenmart-bazar-frontend-main"
-  command = "npm run build"
-  publish = "dist"
