@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const API = axios.create({
- 
-  baseURL: 'https://second-hand-marketplace-backend-final.onrender.com/api', 
+  // Final Updated Vercel Backend URL
+  baseURL: 'https://https-github-com-sadia437-sadia437.vercel.app/api', 
   timeout: 10000,
   headers: { 'Content-Type': 'application/json' },
 });

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -10,7 +11,7 @@ export default function Login() {
   const [isLocked, setIsLocked] = useState(false);
   const [lockTime, setLockTime] = useState(0);
   
-  const { login, googleSignIn, currentUser, setDbUser } = useAuth();
+  const { login, googleSignIn, setDbUser } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -34,7 +35,6 @@ export default function Login() {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-
   const navigateByRole = (user, fallbackPath) => {
     const role = user?.role;
     if (role === 'admin') {
@@ -57,16 +57,18 @@ export default function Login() {
     
     setLoading(true);
     try {
+     
       const { data } = await API.post('/users/login', {
         email: formData.email.toLowerCase().trim(),
         password: formData.password
-      });
+      }, { withCredentials: true });
 
       if (data.token) {
         localStorage.setItem('token', data.token);
         setDbUser(data.user); 
 
         try {
+          // Firebase 
           await login(formData.email.toLowerCase().trim(), formData.password);
         } catch (authErr) {
           console.warn("Firebase Sync:", authErr.message);
@@ -74,8 +76,6 @@ export default function Login() {
 
         localStorage.removeItem('accountLock');
         toast.success('Welcome back! 🎉');
-        
-        
         navigateByRole(data.user, from);
       }
     } catch (error) {
@@ -97,14 +97,12 @@ export default function Login() {
         name: user.displayName,
         googleId: user.uid,
         photoURL: user.photoURL
-      });
+      }, { withCredentials: true });
 
       if (data.token) {
         localStorage.setItem('token', data.token);
         setDbUser(data.user);
         toast.success('Google login successful! 🎉');
-        
-        
         navigateByRole(data.user, '/');
       }
     } catch (error) {

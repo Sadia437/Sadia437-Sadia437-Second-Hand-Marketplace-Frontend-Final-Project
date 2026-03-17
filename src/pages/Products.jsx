@@ -14,16 +14,18 @@ export default function ProductsPage() {
       setLoading(true);
       try {
        
+        const baseApi = 'https://https-github-com-sadia437-sadia437.vercel.app/api/products';
         const apiUrl = categoryId 
-          ? `https://second-hand-marketplace-backend-final.onrender.com/api/products?category=${categoryId}` 
-          : 'https://second-hand-marketplace-backend-final.onrender.com/api/products?limit=50';
+          ? `${baseApi}?category=${categoryId}` 
+          : `${baseApi}?limit=50`;
           
         const response = await axios.get(apiUrl);
-        setProducts(response.data.products || []);
+        
+        setProducts(response.data.products || response.data || []);
         setLoading(false);
       } catch (err) {
         console.error("Error fetching data:", err);
-        setError("পণ্যগুলো লোড করা সম্ভব হয়নি।");
+        setError("পণ্যগুলো লোড করা সম্ভব হয়নি। সার্ভার কানেকশনে সমস্যা হতে পারে।");
         setLoading(false);
       }
     };
@@ -39,11 +41,22 @@ export default function ProductsPage() {
   }
 
   if (error) {
-    return <div className="text-center py-20 text-red-500 font-bold">{error}</div>;
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#F8FAFC] py-20 px-4">
+        <div className="text-red-500 font-bold text-lg mb-4 text-center">{error}</div>
+        <button 
+          onClick={() => window.location.reload()} 
+          className="bg-[#5b1ee9] text-white px-6 py-2 rounded-lg font-semibold"
+        >
+          আবার চেষ্টা করুন
+        </button>
+      </div>
+    );
   }
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] pb-20">
+      {/* Header Section */}
       <section className="relative bg-[#2563EB] py-20 text-center text-white mb-12 shadow-md overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {[...Array(20)].map((_, i) => (
@@ -86,6 +99,7 @@ export default function ProductsPage() {
            </div>
         )}
 
+        {/* Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {products.map((product) => (
             <div key={product._id} className="group bg-white rounded-[30px] overflow-hidden shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-300">
@@ -96,7 +110,6 @@ export default function ProductsPage() {
                   alt={product.name} 
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   onError={(e) => {
-                 
                     e.target.onerror = null; 
                     e.target.src = 'https://placehold.jp/24/cccccc/ffffff/400x400.png?text=Image+Not+Found';
                   }}
@@ -113,7 +126,6 @@ export default function ProductsPage() {
                 </p>
                 
                 <div className="flex items-baseline gap-2 mb-4">
-               
                   <span className="text-2xl font-black text-slate-900">৳{product.resalePrice || product.price}</span>
                   {product.originalPrice && (
                     <span className="text-sm text-slate-400 line-through">৳{product.originalPrice}</span>

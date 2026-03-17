@@ -36,10 +36,10 @@ export function AuthProvider({ children }) {
       setCurrentUser(user);
       const token = localStorage.getItem('token');
 
-      
+      // Updated to your new Vercel Backend URL
       if (user?.email && token && !dbUser) {
         try {
-          const res = await axios.get(`https://second-hand-marketplace-backend-final.onrender.com/api/users/profile`, {
+          const res = await axios.get(`https://https-github-com-sadia437-sadia437.vercel.app/api/users/profile`, {
             headers: { Authorization: `Bearer ${token}` }
           });    
           if (res.data) {
