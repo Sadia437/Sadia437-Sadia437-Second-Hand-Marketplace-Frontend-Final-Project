@@ -50,7 +50,7 @@ React Hot Toast - Lightweight notifications for user actions.
 
 📦 Installation & Setup
 # Clone the repository
-git clone https://github.com/Sadia437/Second-Hand-Marketplace-Frontend-Final.git
+git clone https://github.com/Sadia437/Sadia437-Sadia437-Second-Hand-Marketplace-Frontend-Final-Project.git
 
 # Navigate to project directory
 cd Second-Hand-Marketplace-Frontend-Final
@@ -63,4 +63,4 @@ npm run dev
 
 🔗 Live Website
 
-https://second-hand-marketplace-frontend-fi.vercel.app/
+https://secondhand-marketplac.netlify.app/
