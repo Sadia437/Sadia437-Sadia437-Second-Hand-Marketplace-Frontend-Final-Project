@@ -15,6 +15,7 @@ export default function ProductsPage() {
       try {
        
         const baseApi = 'https://https-github-com-sadia437-sadia437.vercel.app/api/products';
+
         const apiUrl = categoryId 
           ? `${baseApi}?category=${categoryId}` 
           : `${baseApi}?limit=50`;
